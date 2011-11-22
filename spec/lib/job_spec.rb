@@ -39,4 +39,10 @@ describe "Job Spec" do
     @job.status.should == "Finished"    
   end
 
+  it "should have a command attributes" do
+    @job.command = "test"
+    @job.params = {:a => "a", :b => "b" , "this is test" => ""}
+    @job.command.should == "test -a a -b b this is test"
+  end
+
 end

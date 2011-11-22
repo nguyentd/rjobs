@@ -1,0 +1,26 @@
+{
+    "PHP": {
+        "php": '/usr/bin/php',
+        "phpExtraPaths": [],
+        "phpConfigFile": 'php.ini'
+    },
+    "JavaScript": {
+        "javascriptExtraPaths": []
+    },
+    "Perl": {
+        "perl": "/usr/bin/perl",
+        "perlExtraPaths": []
+    },
+    "Ruby": {
+        "ruby": "/Users/merlin/.rvm/rubies/ruby-1.9.2-p290/bin/ruby",
+        "rubyExtraPaths": []
+    },
+    "Python": {
+        "python": '/usr/bin/python',
+        "pythonExtraPaths": []
+    },
+    "Python3": {
+        "python": '/usr/bin/python3',
+        "pythonExtraPaths": []
+    }
+}

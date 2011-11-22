@@ -1,25 +1,23 @@
 module Rjobs
   class CommandBuilder
-    @@host = "127.0.0.1"
-    @@password = "xgrid"
-
-
-    def initialize()
-     
+    attr_accessor :command, :params    
+    def initialize(command = "", params = "")
+      @command = command
+      @params = params
     end
 
-    def self.build(params)
+    def build()
       cmd = []
-      cmd <<  "xgrid"
-      cmd << "-h #{@@host}"
-      cmd << "-p #{@@password}"
-      cmd << "-f xml"
-      params.each do |key, value|
-        cmd << "-#{key}"
-        cmd << value
+      cmd <<  @command
+      @params.each do |key, value|
+        if value == ""
+          cmd << "#{key}"
+        else
+          cmd << "-#{key}"
+          cmd << value
+        end        
       end
       cmd.join(" ")
     end
-
   end
 end

@@ -13,11 +13,11 @@ opts = Trollop::options do
   opt :t , "test"
 end
 
+
 jobs_file = ARGV[0]
 
 jobs = get_jobs_info(jobs_file)
-
-jobs.each do |job|        
-  puts "#{job.name} - #{job.status_with_color}"
-end
+jobs.each do |job| 
+  Rjobs::JobHandler.get_job_results(job)        
+end        
 

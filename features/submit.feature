@@ -16,7 +16,7 @@ Feature: Submit
     JobId: 1-10
     Command: ~/plays/cpp/testGrid/a.out
     """
-    When I successfully run `rjobs submit VAA.myJobs`
+    When I successfully run `rjsubmit VAA.myJobs`
     Then show me the output
     Then a file named "VAA.rjobs" should exist    
     And the file "VAA.rjobs" should match /(VAA\d+\t\d+\n)+/

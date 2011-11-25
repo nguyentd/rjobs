@@ -17,6 +17,6 @@ Feature: List Jobs
 		VAA6 6
 		VAA7 7
 		"""
-		When I successfully run `rjobs status test_jobs.rjob`    
+		When I successfully run `rjstatus test_jobs.rjob`    
 		Then each line of the output should match /VAA\d+ - (Finished|Failed|Not Exist)/
 		And show me the output

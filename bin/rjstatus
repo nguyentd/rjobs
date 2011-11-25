@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift(File.dirname(__FILE__) + '/../lib') unless $LOAD_PATH.include?(File.dirname(__FILE__) + '/../lib')
+
+require 'trollop'
+require "rjobs/jobs_file"
+require "rjobs/job"
+require "rjobs/job_handler"
+require 'rjobs/cli_helper'
+include  Rjobs::CliHelper   
+
+opts = Trollop::options do
+  opt :t , "test"
+end
+
+
+jobs = get_jobs_info(ARGV[0])
+
+jobs.each do |job|        
+  puts "#{job.name} - #{job.status_with_color}"
+end
+

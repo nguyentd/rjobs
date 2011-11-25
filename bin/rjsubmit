@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift(File.dirname(__FILE__) + '/../lib') unless $LOAD_PATH.include?(File.dirname(__FILE__) + '/../lib')
+
+require 'trollop'
+require "rjobs/jobs_file"
+require "rjobs/job_input_file"
+require "rjobs/job"
+require "rjobs/job_handler"
+require 'rjobs/cli_helper'
+include  Rjobs::CliHelper   
+
+opts = Trollop::options do
+  opt :t , "test"
+end
+
+
+jobs_input_file = ARGV[0]
+
+jif = Rjobs::JobInputFile.new(jobs_input_file)
+jobs = []
+length = jif.jobIdTo.length
+(jif.jobIdFrom .. jif.jobIdTo).each do |id| 
+  j = Rjobs::Job.new()
+  j.name = "%s%0#{length}d" % [jif.jobName,id]
+  j.command = jif.command
+  jobs << j        
+end
+
+jobs.each do |job|        
+  Rjobs::JobHandler.submit_job(job)        
+end
+
+jf = Rjobs::JobsFile.new()
+jf.write(jif.jobName+".rjobs",jobs)
+
+puts "#{jobs.count} job(s) submited.".green

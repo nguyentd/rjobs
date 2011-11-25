@@ -20,7 +20,7 @@ Feature: Submit
     VAA6 6
     VAA7 7
     """
-    When I successfully run `rjobs harvest VAA.rjobs`
+    When I successfully run `rjharvest VAA.rjobs`
     Then show me the output
     Then a file named "VAA1.out" should exist    
     And the file "VAA1.out" should match /Hello world/

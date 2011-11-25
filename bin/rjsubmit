@@ -10,8 +10,20 @@ require "rjobs/job_handler"
 require 'rjobs/cli_helper'
 include  Rjobs::CliHelper   
 
-opts = Trollop::options do
-  opt :t , "test"
+p = Trollop::Parser.new do
+  banner <<-EOS
+Submit jobs described in the YAML input file.
+
+Usage:
+       rjsubmit [options] <filename>
+where [options] are:
+EOS
+  
+end
+
+opts = Trollop::with_standard_exception_handling p do
+  o = p.parse ARGV
+  raise Trollop::HelpNeeded if ARGV.empty? # show help screen
 end
 
 

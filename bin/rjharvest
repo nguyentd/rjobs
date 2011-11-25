@@ -9,10 +9,21 @@ require "rjobs/job_handler"
 require 'rjobs/cli_helper'
 include  Rjobs::CliHelper   
 
-opts = Trollop::options do
-  opt :t , "test"
+p = Trollop::Parser.new do
+  banner <<-EOS
+Harvest all finished jobs described in the jobs file.
+
+Usage:
+       rjharvest [options] <filename>
+where [options] are:
+EOS
+  
 end
 
+opts = Trollop::with_standard_exception_handling p do
+  o = p.parse ARGV
+  raise Trollop::HelpNeeded if ARGV.empty? # show help screen
+end
 
 jobs_file = ARGV[0]
 

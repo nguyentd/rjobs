@@ -4,8 +4,8 @@ Feature: Submit
   So that I can analyse it later
   
   Scenario: Have a harvest command
-    When I successfully run `rjobs harvest`
-    Then the output should contain "harvest [jobs_file]"
+    When I successfully run `rjharvest`
+    Then the output should contain "rjharvest [options] <filename>"
   
 
 

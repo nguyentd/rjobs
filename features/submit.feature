@@ -4,7 +4,7 @@ Feature: Submit
   So that jobs can be run on the xgrid
   
   Scenario: Have a submit command
-    When I successfully run `rjobs submit`
+    When I successfully run `rjsubmit`
     Then the output should contain "submit [jobs_file]"
   
 

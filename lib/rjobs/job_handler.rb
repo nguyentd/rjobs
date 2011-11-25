@@ -15,6 +15,7 @@ module Rjobs
         :job => :attributes,
         :id => id
       })      
+      # puts cb.build
       Rjobs::Process.run(cb.build)
     end
 
@@ -31,6 +32,26 @@ module Rjobs
       result = Plist::parse_xml(result)
 
       job.id = result['jobIdentifier'].nil? ? -1 : Integer(result['jobIdentifier'])
+    end
+
+    def self.get_job_results(job)
+      params = {
+        :h => @@host,
+        :p => @@password,
+        :f => "xml",
+        :job => :results,
+        :id => job.id        
+      }
+      if job.status == "Finished"
+        params[:so] = job.name+".out"
+      else
+        params[:se] = job.name+".err"
+      end
+        
+
+      cb = Rjobs::CommandBuilder.new("xgrid", params)      
+      # puts cb.build
+      Rjobs::Process.run(cb.build)
     end
 
   end

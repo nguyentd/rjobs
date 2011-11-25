@@ -1,5 +1,7 @@
 require 'plist'
 require 'rjobs/command_builder'
+require 'colorize'
+
 module Rjobs
   class Job
     attr_accessor :id, :name, :status
@@ -21,6 +23,20 @@ module Rjobs
       cb.build
     end
     
+    def status_with_color
+      case @status
+      when /Finished/
+        @status.green
+      when /Failed/
+        @status.light_red
+      when /Not Exist/
+        @status.red
+      else
+        @status
+      end
+    end
+
+
     private
     def parse(xml)
       return if xml.empty?

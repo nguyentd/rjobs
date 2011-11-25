@@ -13,7 +13,7 @@ Feature: Submit
     Given a file named "VAA.myJobs" with:
     """
     JobName: VAA
-    JobId: 1-5
+    JobId: 1-10
     Command: ~/plays/cpp/testGrid/a.out
     """
     When I successfully run `rjobs submit VAA.myJobs`

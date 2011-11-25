@@ -5,7 +5,7 @@ Feature: Submit
   
   Scenario: Have a submit command
     When I successfully run `rjsubmit`
-    Then the output should contain "submit [jobs_file]"
+    Then the output should contain "rjsubmit [options] <filename>"
   
 
 

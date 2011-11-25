@@ -25,9 +25,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "guard"
   s.add_development_dependency "growl_notify"
   s.add_development_dependency "guard-rspec"
-  # s.add_runtime_dependency "rest-client"
-  s.add_dependency "thor"
-  #s.add_dependency "nokogiri" 
+
   s.add_dependency "plist" 
   s.add_dependency "colorize" 
   s.add_dependency "trollop"

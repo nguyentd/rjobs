@@ -15,7 +15,7 @@ p = Trollop::Parser.new do
 Submit jobs described in the YAML input file.
 
 Usage:
-       rjsubmit [options] <filename>
+      rjsubmit [options] <filename>
 where [options] are:
 EOS
   

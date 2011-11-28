@@ -5,11 +5,11 @@ require "rjobs/version"
 Gem::Specification.new do |s|
   s.name        = "rjobs"
   s.version     = Rjobs::VERSION
-  s.authors     = ["Merlin"]
+  s.authors     = ["Nguyen Tran"]
   s.email       = ["merlinvn@gmail.com"]
   s.homepage    = ""
-  s.summary     = %q{Gem to Handle Jobs for XGrid}
-  s.description = %q{Gem to Handle Jobs for XGrid}
+  s.summary     = %q{Gem to handle Jobs for XGrid}
+  s.description = %q{Gem to handle Jobs for XGrid}
 
   s.rubyforge_project = "rjobs"
 

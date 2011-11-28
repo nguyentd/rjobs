@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = Rjobs::VERSION
   s.authors     = ["Nguyen Tran"]
   s.email       = ["merlinvn@gmail.com"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/nguyentd/rjobs"
   s.summary     = %q{Gem to handle Jobs for XGrid}
   s.description = %q{Gem to handle Jobs for XGrid}
 

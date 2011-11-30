@@ -36,7 +36,7 @@ length = jif.jobIdTo.length
 (jif.jobIdFrom .. jif.jobIdTo).each do |id| 
   j = Rjobs::Job.new()
   j.name = "%s%0#{length}d" % [jif.jobName,id]
-  j.command = jif.command
+  j.command = jif.command.gsub /\$\{JobId\}/,id
   jobs << j        
 end
 

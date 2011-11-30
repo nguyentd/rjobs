@@ -55,4 +55,4 @@ sPending = "- #{jPending} pending" if jPending > 0
 sFailed = "- #{jFailed} failed".red if jFailed > 0
 sNE = "- #{jNE} not exist".red if jNE > 0
 
-p "#{jobs.count} jobs: #{sFinish} #{sPending} #{sFailed} #{sNE}."
+puts "#{jobs.count} jobs: #{sFinish} #{sPending} #{sFailed} #{sNE}."

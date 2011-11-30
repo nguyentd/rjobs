@@ -12,7 +12,7 @@ Then /^show me the output$/ do
 end
 
 Then /^each line of the output should match \/([^\/]*)\/$/ do |expected|
-    all_stdout.split("\n").each do |line|
+    all_stdout.split("\n")[0..-2].each do |line|
       # puts line
       line.should match expected
     end

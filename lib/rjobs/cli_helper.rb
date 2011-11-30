@@ -1,3 +1,5 @@
+require "trollop"
+
 module Rjobs
   module CliHelper
     def get_jobs_info(jobs_file)
@@ -10,5 +12,20 @@ module Rjobs
       end
       jobs
     end
+
+    def parser(banner_string)
+      default_hostname = ENV['XGRID_CONTROLLER_HOSTNAME'].nil? ? "127.0.0.1" : ENV['XGRID_CONTROLLER_HOSTNAME']
+      default_password = ENV['XGRID_CONTROLLER_PASSWORD'].nil? ? "xgrid" : ENV['XGRID_CONTROLLER_PASSWORD'] 
+      Trollop::Parser.new do
+        banner banner_string
+        opt :host, "Hostname or IP address of the xgrid controller", 
+            :type=> String, 
+            :default=> default_hostname
+        opt :password, "Password to access the xgrid controller", 
+            :type=> String, 
+            :default=> default_password 
+      end
+    end
+
   end
 end

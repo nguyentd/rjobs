@@ -25,5 +25,7 @@ describe Rjobs::JobHandler do
     job.id.should == 11
   end
 
+
+
 end
 

@@ -9,16 +9,15 @@ require "rjobs/job_handler"
 require 'rjobs/cli_helper'
 include  Rjobs::CliHelper   
 
-p = Trollop::Parser.new do
-  banner <<-EOS
+banner = "================
 Get the status of jobs described in the jobs file.
-
+================
 Usage:
        rjstatus [options] <filename>
 where [options] are:
-EOS
-  
-end
+"
+
+p = parser(banner)
 
 opts = Trollop::with_standard_exception_handling p do
   o = p.parse ARGV
@@ -26,6 +25,7 @@ opts = Trollop::with_standard_exception_handling p do
 end
 
 jobs_file = ARGV[0]
+raise "The file \"#{jobs_file}\" must exist." unless File.exist?(jobs_file) 
 
 jobs = get_jobs_info(jobs_file)
 
@@ -33,3 +33,4 @@ jobs.each do |job|
   puts "#{job.name} - #{job.status_with_color}"
 end
 
+#TODO: output number of success jobs - pending jobs - failed jobs

@@ -9,23 +9,27 @@ require "rjobs/job_handler"
 require 'rjobs/cli_helper'
 include  Rjobs::CliHelper   
 
-p = Trollop::Parser.new do
-  banner <<-EOS
+banner = "================
 Harvest all finished jobs described in the jobs file.
-
+================
 Usage:
        rjharvest [options] <filename>
 where [options] are:
-EOS
-  
-end
+"
+
+p = parser(banner)
 
 opts = Trollop::with_standard_exception_handling p do
   o = p.parse ARGV
   raise Trollop::HelpNeeded if ARGV.empty? # show help screen
+  o
 end
 
+Rjobs::JobHandler.host = opts[:host]
+Rjobs::JobHandler.password = opts[:password]
+
 jobs_file = ARGV[0]
+raise "The file \"#{jobs_file}\" must exist." unless File.exist?(jobs_file) 
 
 jobs = get_jobs_info(jobs_file)
 jobs.each do |job| 

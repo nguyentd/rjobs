@@ -9,8 +9,8 @@ module Rjobs
 
     def self.get_job_attributes(id)
       cb = Rjobs::CommandBuilder.new("xgrid", {
-        :h => @@host,
-        :p => @@password,
+        :h => host,
+        :p => password,
         :f => "xml",
         :job => :attributes,
         :id => id
@@ -53,6 +53,24 @@ module Rjobs
       # puts cb.build
       Rjobs::Process.run(cb.build)
     end
+
+    def self.host
+      @@host
+    end
+
+    def self.host=(value)
+      @@host = value
+    end
+
+    def self.password      
+      @@password
+    end
+
+    def self.password=(value)
+      @@password = value
+    end
+
+
 
   end
 end

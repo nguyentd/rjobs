@@ -10,16 +10,15 @@ require "rjobs/job_handler"
 require 'rjobs/cli_helper'
 include  Rjobs::CliHelper   
 
-p = Trollop::Parser.new do
-  banner <<-EOS
+banner = "================
 Submit jobs described in the YAML input file.
-
+================
 Usage:
-      rjsubmit [options] <filename>
+       rjsubmit [options] <filename>
 where [options] are:
-EOS
-  
-end
+"
+
+p = parser(banner)
 
 opts = Trollop::with_standard_exception_handling p do
   o = p.parse ARGV
@@ -28,6 +27,8 @@ end
 
 
 jobs_input_file = ARGV[0]
+raise "The file \"#{jobs_input_file}\" must exist." unless File.exist?(jobs_input_file) 
+
 
 jif = Rjobs::JobInputFile.new(jobs_input_file)
 jobs = []

@@ -29,8 +29,30 @@ raise "The file \"#{jobs_file}\" must exist." unless File.exist?(jobs_file)
 
 jobs = get_jobs_info(jobs_file)
 
+jFinished = 0
+jPending = 0
+jFailed = 0
+jNE =0
+
 jobs.each do |job|        
   puts "#{job.name} - #{job.status_with_color}"
+  case job.status
+  when /Finished/
+    jFinished +=1
+  when /Failed/
+    jFailed +=1
+  when /Not Exist/
+    jNE+=1
+  else
+    jPending +=1
+  end
+
 end
 
-#TODO: output number of success jobs - pending jobs - failed jobs
+#output number of success jobs - pending jobs - failed jobs
+sFinish = "#{jFinished} finished".green if jFinished > 0
+sPending = "- #{jPending} pending" if jPending > 0
+sFailed = "- #{jFailed} failed".red if jFailed > 0
+sNE = "- #{jNE} not exist".red if jNE > 0
+
+p "#{jobs.count} jobs: #{sFinish} #{sPending} #{sFailed} #{sNE}."

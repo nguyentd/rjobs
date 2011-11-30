@@ -43,7 +43,6 @@ module Rjobs
       result = Plist::parse_xml(xml)
       @name = result['jobAttributes'].nil? ? "" : result['jobAttributes']['name']      
       @status = result['jobAttributes'].nil? ? "Not Exist" : result['jobAttributes']['jobStatus']      
-      
     end
 
 

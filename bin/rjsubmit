@@ -23,8 +23,11 @@ p = parser(banner)
 opts = Trollop::with_standard_exception_handling p do
   o = p.parse ARGV
   raise Trollop::HelpNeeded if ARGV.empty? # show help screen
+  o
 end
 
+Rjobs::JobHandler.host = opts[:host]
+Rjobs::JobHandler.password = opts[:password]
 
 jobs_input_file = ARGV[0]
 raise "The file \"#{jobs_input_file}\" must exist." unless File.exist?(jobs_input_file) 

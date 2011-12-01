@@ -31,8 +31,18 @@ Rjobs::JobHandler.password = opts[:password]
 jobs_file = ARGV[0]
 raise "The file \"#{jobs_file}\" must exist." unless File.exist?(jobs_file) 
 
+
 jobs = get_jobs_info(jobs_file)
 jobs.each do |job| 
-  Rjobs::JobHandler.get_job_results(job)        
+  Rjobs::JobHandler.get_job_results(job, true)        
 end        
 
+
+File.open("#{File.basename(jobs_file,File.extname(jobs_file))}.out", 'w') do |file|
+  jobs.each do |job| 
+    file.puts Rjobs::JobHandler.get_job_results(job, false)        
+  end    
+end
+
+
+puts "#{jobs.count} jobs was collected.".green

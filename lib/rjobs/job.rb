@@ -27,6 +27,8 @@ module Rjobs
       case @status
       when /Finished/
         @status.green
+      when /Running/
+        @status.blue
       when /Failed/
         @status.light_red
       when /Not Exist/
@@ -44,9 +46,6 @@ module Rjobs
       @name = result['jobAttributes'].nil? ? "" : result['jobAttributes']['name']      
       @status = result['jobAttributes'].nil? ? "Not Exist" : result['jobAttributes']['jobStatus']      
     end
-
-
-
   end
 end
 

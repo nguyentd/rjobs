@@ -22,14 +22,21 @@ p = parser(banner)
 opts = Trollop::with_standard_exception_handling p do
   o = p.parse ARGV
   raise Trollop::HelpNeeded if ARGV.empty? # show help screen
+  o
 end
+
+Rjobs::JobHandler.host = opts[:host]
+Rjobs::JobHandler.password = opts[:password]
 
 jobs_file = ARGV[0]
 raise "The file \"#{jobs_file}\" must exist." unless File.exist?(jobs_file) 
 
+
+
 jobs = get_jobs_info(jobs_file)
 
 jFinished = 0
+jRunning = 0
 jPending = 0
 jFailed = 0
 jNE =0
@@ -39,6 +46,8 @@ jobs.each do |job|
   case job.status
   when /Finished/
     jFinished +=1
+  when /Running/
+    jRunning +=1
   when /Failed/
     jFailed +=1
   when /Not Exist/
@@ -50,9 +59,10 @@ jobs.each do |job|
 end
 
 #output number of success jobs - pending jobs - failed jobs
-sFinish = "#{jFinished} finished".green if jFinished > 0
+sFinish = "#{jFinished} finished".green
+sRunning = "- #{jRunning} running".blue if jRunning > 0
 sPending = "- #{jPending} pending" if jPending > 0
 sFailed = "- #{jFailed} failed".red if jFailed > 0
 sNE = "- #{jNE} not exist".red if jNE > 0
 
-puts "#{jobs.count} jobs: #{sFinish} #{sPending} #{sFailed} #{sNE}."
+puts "#{jobs.count} jobs: #{sFinish} #{sRunning} #{sPending} #{sFailed} #{sNE}"

@@ -19,6 +19,9 @@ where [options] are:
 "
 
 p = parser(banner)
+p.opt  :outputFile , "The file that store the mapping between JobName and JobId",
+        :type => String,
+        :default => ""
 
 opts = Trollop::with_standard_exception_handling p do
   o = p.parse ARGV
@@ -34,6 +37,21 @@ raise "The file \"#{jobs_input_file}\" must exist." unless File.exist?(jobs_inpu
 
 
 jif = Rjobs::JobInputFile.new(jobs_input_file)
+
+outputFile = opts[:outputFile].empty? ? "#{jif.jobName}.rjobs" : opts[:outputFile];
+if File.exist?(outputFile)
+  continue = true
+  while continue
+    print "File #{outputFile} exists. Would you like to overwrite it? [y/n]: "
+    case STDIN.gets
+      when /^[Yy](es)?$/
+        continue = false        
+      when /^[nN]o?$/ #n or no
+        Process.exit
+    end
+  end
+end
+
 jobs = []
 length = jif.jobIdTo.length
 (jif.jobIdFrom .. jif.jobIdTo).each do |id| 
@@ -48,6 +66,6 @@ jobs.each do |job|
 end
 
 jf = Rjobs::JobsFile.new()
-jf.write(jif.jobName+".rjobs",jobs)
+jf.write(outputFile, jobs)
+puts "#{jobs.count} job(s) submited.".green     
 
-puts "#{jobs.count} job(s) submited.".green

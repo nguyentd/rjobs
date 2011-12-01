@@ -19,6 +19,8 @@ where [options] are:
 
 p = parser(banner)
 
+p.opt :separate, "colect output in separate file", :default=> false
+
 opts = Trollop::with_standard_exception_handling p do
   o = p.parse ARGV
   raise Trollop::HelpNeeded if ARGV.empty? # show help screen
@@ -33,16 +35,19 @@ raise "The file \"#{jobs_file}\" must exist." unless File.exist?(jobs_file)
 
 
 jobs = get_jobs_info(jobs_file)
-jobs.each do |job| 
-  Rjobs::JobHandler.get_job_results(job, true)        
-end        
 
+if opts[:separate]
+  jobs.each do |job| 
+    Rjobs::JobHandler.get_job_results(job, true)        
+  end        
+end
 
-File.open("#{File.basename(jobs_file,File.extname(jobs_file))}.out", 'w') do |file|
+outputFile = "#{File.basename(jobs_file,File.extname(jobs_file))}.out"
+File.open(outputFile, 'w') do |file|
   jobs.each do |job| 
     file.puts Rjobs::JobHandler.get_job_results(job, false)        
   end    
 end
 
 
-puts "#{jobs.count} jobs was collected.".green
+puts "#{jobs.count} jobs was collected in \"#{outputFile}\"".green
